@@ -42,6 +42,7 @@ public static class ActionsControlExtensions
             Action = actionName,
             Pressed = true
         });
+        Input.ActionPress(actionName);
         await node.GetTree().WaitForEvents();
     }
 
@@ -58,6 +59,7 @@ public static class ActionsControlExtensions
             Action = actionName,
             Pressed = false
         });
+        Input.ActionRelease(actionName);
         await node.GetTree().WaitForEvents();
     }
 
