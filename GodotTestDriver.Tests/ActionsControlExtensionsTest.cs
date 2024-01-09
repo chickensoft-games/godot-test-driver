@@ -34,4 +34,20 @@ public class ActionsControlExtensionsTest : DriverTest
         await RootNode.EndAction(TestAction);
         Input.IsActionPressed(TestAction).ShouldBeFalse();
     }
+
+    [Test]
+    public async Task StartActionSetsGlobalActionJustPressed()
+    {
+        await RootNode.StartAction(TestAction);
+        Input.IsActionJustPressed(TestAction).ShouldBeTrue();
+        await RootNode.EndAction(TestAction);
+    }
+
+    [Test]
+    public async Task EndActionSetsGlobalActionJustReleased()
+    {
+        await RootNode.StartAction(TestAction);
+        await RootNode.EndAction(TestAction);
+        Input.IsActionJustReleased(TestAction).ShouldBeTrue();
+    }
 }
