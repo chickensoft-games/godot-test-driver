@@ -1,11 +1,7 @@
 namespace GodotTestDriver.Tests;
-
-using System;
-using System.Threading.Tasks;
 using Chickensoft.GoDotTest;
 using Godot;
 using GodotTestDriver.Input;
-using GodotTestDriver.Util;
 using JetBrains.Annotations;
 using Shouldly;
 
@@ -19,35 +15,35 @@ public class ActionsControlExtensionsTest : DriverTest
     }
 
     [Test]
-    public async Task StartActionSetsGlobalActionPressed()
+    public void StartActionSetsGlobalActionPressed()
     {
         Input.IsActionPressed(TestAction).ShouldBeFalse();
-        await RootNode.StartAction(TestAction);
+        RootNode.StartAction(TestAction);
         Input.IsActionPressed(TestAction).ShouldBeTrue();
-        await RootNode.EndAction(TestAction);
+        RootNode.EndAction(TestAction);
     }
 
     [Test]
-    public async Task EndActionUnsetsGlobalActionPressed()
+    public void EndActionUnsetsGlobalActionPressed()
     {
-        await RootNode.StartAction(TestAction);
-        await RootNode.EndAction(TestAction);
+        RootNode.StartAction(TestAction);
+        RootNode.EndAction(TestAction);
         Input.IsActionPressed(TestAction).ShouldBeFalse();
     }
 
     [Test]
-    public async Task StartActionSetsGlobalActionJustPressed()
+    public void StartActionSetsGlobalActionJustPressed()
     {
-        await RootNode.StartAction(TestAction);
+        RootNode.StartAction(TestAction);
         Input.IsActionJustPressed(TestAction).ShouldBeTrue();
-        await RootNode.EndAction(TestAction);
+        RootNode.EndAction(TestAction);
     }
 
     [Test]
-    public async Task EndActionSetsGlobalActionJustReleased()
+    public void EndActionSetsGlobalActionJustReleased()
     {
-        await RootNode.StartAction(TestAction);
-        await RootNode.EndAction(TestAction);
+        RootNode.StartAction(TestAction);
+        RootNode.EndAction(TestAction);
         Input.IsActionJustReleased(TestAction).ShouldBeTrue();
     }
 }

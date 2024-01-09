@@ -24,18 +24,18 @@ public static class ActionsControlExtensions
         string actionName
     )
     {
-        await node.StartAction(actionName);
+        node.StartAction(actionName);
         await node.Wait(seconds);
-        await node.EndAction(actionName);
+        node.EndAction(actionName);
     }
 
     /// <summary>
     /// Start an input action.
     /// </summary>
-    /// <param name="node">Node to supply input to.</param>
+    /// <param name="_">Node to supply input to.</param>
     /// <param name="actionName">Name of the action.</param>
     /// <returns>Task that completes when the input finishes.</returns>
-    public static async Task StartAction(this Node node, string actionName)
+    public static void StartAction(this Node _, string actionName)
     {
         Input.ParseInputEvent(new InputEventAction
         {
@@ -43,16 +43,16 @@ public static class ActionsControlExtensions
             Pressed = true
         });
         Input.ActionPress(actionName);
-        await node.GetTree().WaitForEvents();
+        Input.FlushBufferedEvents();
     }
 
     /// <summary>
     /// End an input action.
     /// </summary>
-    /// <param name="node">Node to supply input to.</param>
+    /// <param name="_">Node to supply input to.</param>
     /// <param name="actionName">Name of the action.</param>
     /// <returns>Task that completes when the input finishes.</returns>
-    public static async Task EndAction(this Node node, string actionName)
+    public static void EndAction(this Node _, string actionName)
     {
         Input.ParseInputEvent(new InputEventAction
         {
@@ -60,7 +60,7 @@ public static class ActionsControlExtensions
             Pressed = false
         });
         Input.ActionRelease(actionName);
-        await node.GetTree().WaitForEvents();
+        Input.FlushBufferedEvents();
     }
 
     /// <summary>
@@ -69,9 +69,9 @@ public static class ActionsControlExtensions
     /// <param name="node">Node to supply input to.</param>
     /// <param name="actionName">Name of the action.</param>
     /// <returns>Task that completes when the input finishes.</returns>
-    public static async Task TriggerAction(this Node node, string actionName)
+    public static void TriggerAction(this Node node, string actionName)
     {
-        await node.StartAction(actionName);
-        await node.EndAction(actionName);
+        node.StartAction(actionName);
+        node.EndAction(actionName);
     }
 }
