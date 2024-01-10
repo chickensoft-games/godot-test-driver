@@ -1,4 +1,4 @@
-﻿namespace GodotTestDriver.Tests;
+namespace GodotTestDriver.Tests;
 
 using System.Linq;
 using System.Threading.Tasks;
@@ -28,11 +28,11 @@ public class PopupMenuDriverTest : DriverTest
     }
 
     [Test]
-    public async Task InspectionWorks()
+    public void InspectionWorks()
     {
         // WHEN
         // we press the button
-        await _button.Press();
+        _button.Press();
 
         // THEN
         // the popup menu is visible
@@ -63,7 +63,7 @@ public class PopupMenuDriverTest : DriverTest
     {
         // WHEN
         // we press the button
-        await _button.Press();
+        _button.Press();
 
         // and we select the first item
         var signalAwaiter = _popupMenu.GetSignalAwaiter(PopupMenu.SignalName.IndexPressed);
